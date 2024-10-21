@@ -1,0 +1,16 @@
+Requirements:
+python3.6 or above
+python modules -- venv
+
+
+Steps for running the app locally:
+
+- clone this repo to your device
+- navigate to this folder(TE_skill_test_app) on your device in the terminal
+- run these commands in the terminal (in the given sequence)
+	-"python3 -m venv venv" 		(to create a virtual environment)
+	-"source venv/bin/activate"-for mac/linux or "venv\Scripts\activate"-for windows 	(to activate the virtual environment created in the last step)
+	-"pip install Flask pandas tradingeconomics" 		(to install all the required python modules in the virtual environment)
+	-"export apikey=APIKEY_VALUE"-for mac/linux or "set apikey=APIKEY_VALUE"-for windows 	(replace APIKEY_VALUE with your apikey, that can be generated in the tradingeconomics devloper account)
+- now navigate to the project folder(TE_skill_test_app) and run "python app.py" command to run the application.
+- open the browser and visit http://127.0.0.1:5000/ to access the app.

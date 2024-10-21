@@ -4,6 +4,9 @@
 logs
 *.log
 
+# Virtual environment  
+venv
+
 # Runtime data
 pids
 *.pid

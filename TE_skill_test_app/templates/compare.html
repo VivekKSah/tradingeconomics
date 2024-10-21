@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block title %}
+Compare Countries Data
+{% endblock %}
+
+{% block head %}
+Select Country pair and indicator to compare.
+{% endblock %}
+       
+{% block content %}
+	<form id="data-form" method="POST">
+          <div class="form-row align-items-end">
+            <div class="form-group col-md-6">
+                <label for="country1">Select Country 1:</label>
+                <select id="country1" name="country1" class="form-control custom-select" required>
+                    <option value="">Choose...</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Thailand">Thailand</option>
+                    <!-- Add more countries as needed -->
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="country2">Select Country 2:</label>
+                <select id="country2" name="country2" class="form-control custom-select" required>
+                    <option value="">Choose...</option>
+                    <option value="Mexico">Mexico</option>
+                    <option value="New Zealand">New Zealand</option>
+                    <option value="Sweden">Sweden</option>
+                    <option value="Thailand">Thailand</option>
+                    <!-- Add more countries as needed -->
+                </select>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="indicator">Select Indicator:</label>
+                <select id="indicator" name="indicator" class="form-control custom-select" required>
+                    <option value="">Choose...</option>
+                    <option value="GDP">GDP</option>
+                    <option value="currency">Currency</option>
+                    <option value="population">Population</option>
+                    <option value="productivity">Productivity</option>
+                    <option value="imports">Imports</option>
+                    <option value="exports">Exports</option>
+                    <option value="wages">Wages</option>
+                    <option value="temperature">Temperature</option>
+                    <!-- Add more indicators as needed -->
+                </select>
+            </div>
+          </div>
+    	  <div class='submit form-group col-md-12'>
+            <button type="submit" class="btn btn-success custom-button">Compare</button>
+    	  </div>
+        </form>
+{% endblock %}
+
+{% block scripts %}
+    const labels = {{ labels | tojson }};
+    const values1 = {{ values1 | tojson }};
+    const values2 = {{ values2 | tojson }};
+    const title = {{ title | tojson }}
+    const country1 = title.trim() ? title.split(' ')[0] : '';
+    const country2 = title.trim() ? title.split(' ')[2] : '';
+
+    function renderBarGraph() {
+        const ctx = document.createElement('canvas');
+        document.getElementById('table-container').innerHTML = '';
+        document.getElementById('table-container').appendChild(ctx);
+
+        const myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: labels,
+                datasets: [
+		    {
+		    label: country1,
+                    data: values1,
+                    backgroundColor: 'rgba(75, 250, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                },
+		    {
+		    label: country2,
+                    data: values2,
+                    backgroundColor: 'rgba(250, 75, 192, 0.2)',
+                    borderColor: 'rgba(250, 75, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    }
+{% endblock %}
